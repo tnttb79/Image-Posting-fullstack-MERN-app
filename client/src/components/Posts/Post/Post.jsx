@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import ReactTimeAgo from "react-time-ago";
 import { deletePost, likePost } from "../../../features/postsSlice";
 import Like from "./Like/Like";
 import UnlikeIcon from "./Icons/UnlikeIcon";
@@ -30,12 +31,24 @@ const Post = ({ setUpdatingID, post }) => {
       {/* Edit icon */}
       {post.creator === user?.existingUser?._id && (
         <button
-          className='absolute top-2 right-2'
+          className='absolute top-4 right-4'
           onClick={() => setUpdatingID(post._id)}
         >
           <EditIcon />
         </button>
       )}
+
+      {/* Creator name */}
+      <p className='text-xl font-semibold text-white capitalize absolute top-4 left-4 truncate'>
+        {post.name}
+      </p>
+
+      {/* CreateAt with react-time-ago package */}
+      <ReactTimeAgo
+        className='text-xs font-thin text-white m-0 p-0 absolute top-11 left-4'
+        date={new Date(post.createdAt)}
+        locale='en-US'
+      />
 
       <div className='h-1/2 p-4 '>
         {/* Tags */}
@@ -47,23 +60,17 @@ const Post = ({ setUpdatingID, post }) => {
         </p>
 
         {/* Title */}
-        <h3 className='mb-2 text-2xl font-bold text-blue-800 truncate'>
+        <h3 className='mb-2 text-3xl font-bold text-blue-800 truncate'>
           <a href='' className='hover:underline'>
             {post.title}
           </a>
         </h3>
 
-        {/* Creator name */}
-        <p className='text-sm italic font-semibold text-orange-500 capitalize truncate'>
-          by {post.name}
-        </p>
-
         {/* Descriptions */}
-        <div className='flex flex-row justify-between text-sm mt-2 truncate'>
+        <div className='flex flex-row justify-between text-sm m-2 truncate'>
           <p>{post.descriptions}</p>
         </div>
         <div className='flex py-2 w-full'>
-
           {/* Like button */}
           {user ? (
             <button
@@ -75,7 +82,7 @@ const Post = ({ setUpdatingID, post }) => {
           ) : (
             <>
               <UnlikeIcon />
-              <p className='flex text-xs font-thin italic items-center'>
+              <p className='flex text-xs font-thin items-center'>
                 &nbsp;{post.likes.length} Likes
               </p>
             </>
