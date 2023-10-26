@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Environment variables
+.env
+
+# Build files
+/build
+/public
+
+# VS Code specific files
+.vscode/
+
+# IDE files
+.idea/
+
+# Mac specific files
+.DS_Store
+
+# Editor specific files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swn
+*.swo
+*.obj
+*.lock
+.DS_Store
+
+# OS generated files
+ehthumbs.db
+Thumbs.db
