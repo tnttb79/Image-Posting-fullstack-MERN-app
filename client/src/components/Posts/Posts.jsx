@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchPosts } from "../../features/post/postsSlice";
+import { fetchPosts } from "../../features/postsSlice";
 import Post from "./Post/Post";
 
 const Posts = ({ setUpdatingID }) => {

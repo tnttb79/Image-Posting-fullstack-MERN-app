@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { deletePost, likePost } from "../../../features/post/postsSlice";
+import { deletePost, likePost } from "../../../features/postsSlice";
 import Like from "./Like/Like";
 import UnlikeIcon from "./Icons/UnlikeIcon";
 import DeleteIcone from "./Icons/DeleteIcone";
