@@ -87,7 +87,7 @@ const Form = ({ setUpdatingID, updatingID }) => {
   };
 
   return (
-    <div className='p-6 ml-4 bg-indigo-600 rounded-lg shadow-[2px_2px_5px_4px_#718096] dark:bg-gray-800'>
+    <div className='p-6 ml-4 bg-indigo-600 rounded-lg shadow-[2px_2px_3px_3px_#718096] dark:bg-gray-800'>
       {!user ? (
         <p className='text-white text-lg font-bold italic py-5'>
           Please sign in to create your post !!!

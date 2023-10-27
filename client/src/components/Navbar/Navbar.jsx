@@ -36,7 +36,7 @@ const Navbar = () => {
   }, [location, logOut, user]);
 
   return (
-    <div className='w-full p-5 my-5 bg-gray-900 shadow-[2px_2px_5px_4px_#718096] col-span-3 rounded-lg flex justify-between items-center'>
+    <div className='w-full p-5 my-5 bg-gray-900 shadow-[2px_2px_3px_3px_#718096] col-span-3 rounded-lg flex justify-between items-center'>
       <Link className='text-white text-5xl font-bold italic' to='/'>
         Memories
       </Link>
