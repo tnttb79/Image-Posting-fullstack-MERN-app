@@ -16,7 +16,7 @@ const Post = ({ setUpdatingID, post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
-    <div className='group relative rounded-lg overflow-hidden duration-1000 bg-gray-200 hover:bg-gray-400 hover:shadow-3xl '>
+    <div className='group relative rounded-lg overflow-hidden duration-1000 bg-gray-200 hover:bg-gray-400 hover:shadow-[0_10px_20px_rgba(240,_46,_170,_0.7)] shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] '>
       <div className='h-40'>
         {/* Cover image */}
         <img
