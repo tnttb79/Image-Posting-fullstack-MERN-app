@@ -131,9 +131,7 @@ const Auth = () => {
             )}
             {/* handle thunk rejected promise for sign in/up */}
             {error && (
-              <p className='text-red-600 text-sm italic'>
-                {error.message}
-              </p>
+              <p className='text-red-600 text-sm italic'>{error.message}</p>
             )}
             {/* sign in or up button */}
             <div className='mt-4 mb-3'>
