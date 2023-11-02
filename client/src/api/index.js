@@ -14,7 +14,7 @@ API.interceptors.request.use(
   }
 )
 
-export const fetchPosts = () => API.get()
+export const fetchPosts = (page) => API.get(`?page=${page}`)
 
 export const createPost = (formData) => API.post('/', formData)
 

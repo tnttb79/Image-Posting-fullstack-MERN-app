@@ -5,11 +5,12 @@ const initialState = {
   posts: [],
   loading: false,
   error: null,
+  totalPage: null,
 };
 
 // thunk to get all the posts
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const res = await API.fetchPosts();
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (page) => {
+  const res = await API.fetchPosts(page);
   return res.data;
 });
 
@@ -42,7 +43,8 @@ export const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = action.payload;
+        state.posts = action.payload.posts;
+        state.totalPage = action.payload.totalPage 
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.loading = false;

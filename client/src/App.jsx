@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
 
 const App = () => {
@@ -9,7 +9,8 @@ const App = () => {
       <Navbar />
       <div className='grid grid-cols-3 gap-2'>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Navigate to={'/posts'} />} />
+          <Route path='/posts' element={<Home/>}/>
           <Route path='/auth' element={<Auth />} />
         </Routes>
       </div>

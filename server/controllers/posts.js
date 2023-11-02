@@ -6,8 +6,11 @@ import fs from "fs";
 // Get all posts
 export async function getPosts(req, res) {
   try {
-    const posts = await PostsModel.find();
-    res.status(200).json(posts);
+    const {page = 1} = req.query
+    const limit = 8
+    const posts = await PostsModel.find().limit(limit).skip((page-1)*limit).sort({createdAt: -1});
+    const count = await PostsModel.countDocuments()
+    res.status(200).json({ posts, totalPage: Math.ceil(count/limit) });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

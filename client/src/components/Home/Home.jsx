@@ -1,5 +1,6 @@
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
+import PaginatedItems from "../Pagination/Pagination";
 import { useState } from "react";
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
       </div>
       <div className='w-full'>
         <Form setUpdatingID={setUpdatingID} updatingID={updatingID} />
+        <PaginatedItems />
       </div>
     </>
   );

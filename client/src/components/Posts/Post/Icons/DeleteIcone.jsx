@@ -2,8 +2,9 @@ const DeleteIcone = () => {
   return (
     <svg
       viewBox='0 0 24 24'
-      fill='red'
-      className='w-6 h-6'
+      // fill='#c6c6c6'
+      fill="currentColor"
+      className='w-6 h-6 text-[#0047AB] hover:text-red-600'
     >
       <path
         fillRule='evenodd'
