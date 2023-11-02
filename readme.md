@@ -1,4 +1,4 @@
-**INITIALIZE THE PROJECT:
+**INITIALIZE THE PROJECT test:
 ** Back-end:
 - npm init -y 
 - create folder structure for back-end
