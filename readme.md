@@ -88,7 +88,21 @@
 	mongoose query: const posts = await PostsModel.find().limit(limit).skip((page-1)*limit).sort({createdAt: -1});
 - send back the totalPage, and fetched posts 
 
-	
+## Search:
+#### Front-end:
+- create a simple search bar component with a search button
+- useState to get value from the search bar
+- handleChange function will navigate to the /search?s=`search_query_in_here`
+- the search component will get the query string with useSearchParams if there is any
+- then useEffect will dispatch fetchPostsBySearch(searchQuery) thunk action if there is any query string (create new API call, thunk action, update the state)
+- the Posts component use useSelector so it will rerender when Redux store got update with fetchPostsBySearch thunk action
+- also hide the pagination when search is perform, so I need to limit the number of post to 8 for better UI
+- this can be handle later but will take more time
+#### Back-end:
+- create new routes for search
+- get the search query from req.body
+- convert search query to regEx for the mongoose find() method
+- limit to 8 results for better UI
 	
 	
 	
