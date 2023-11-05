@@ -1,15 +1,15 @@
 # MyGallery Fullstack-MERN-Redux Toolkit:
 ## Initialize the project:
 #### Back-end:
-- npm init -y 
+- `npm init -y` 
 - create folder structure for back-end
 - install neccessary dependencies for back-end development (cors, nodemon, etc...)
 - type: "module" to use ES6 in the backend
 - Express: 
-	- Set up Express: cors(), .json(), urencoded(), etc
+	- Set up Express: `cors()`, `json()`, `urencoded()`, etc
 	- MongoDB Atlas cluster setup
 	- Connect to MongoDB using mongoose
-	- app.listen()
+	- `app.listen()`
 - create routes in a separate directory
 - create logic of routes handlers in controller directory: this is the logic for each request. Need to put them in a separate folder as a good practice.
 (Then move to client side to create basic structure like Form, Post)
@@ -20,14 +20,14 @@
 - install neccessary dependencies (TailwindCSS, Axios, etc...)
 - create basic structure of the app like Form, Post, NavBar with Tailwind
 
-## CRUD
+## CRUD:
 ### Fetch Post (with RTK):
 - create get route to fetch all post in the back-end
 - set up basic RTK in the app (store, postSlice, reducers, etc)
 - create fetchPost async action logic using createAsyncThunk to fetch all post and store them in redux store. 
 - useEffect to dispatch fetch post action everytime the app is mounted
 
-### Create Post: (no redux yet, but can use w Redux to make changes seemlessly w/o refreshing the page)
+### Create Post: (no redux yet, but can use w Redux to make changes w/o refreshing the page)
 - create put route to create post in the back-end
 - use axios to send post request to server 
 - the form data will be sent using FormData()
@@ -36,7 +36,7 @@
 - store file name in MongoDB
 - use <img/> src attribute to display the image.
 
-### Update post (no Redux yet)
+### Update post: (no Redux yet)
 #### Back-end:
 - create patch route to update post in the back-end
 - using Multer to parse multipart-form data from the client side. Express need multer to be able to parse multipart-form data
@@ -53,8 +53,7 @@
 - use if clause in the handleSubmit function to determine when to send post and patch request with updatingID
 - clear the form with setForm from useState
 	
-### Delete Post (with RTK):
-- use unlink from fs module, no multer needed
+### Delete Post: (with RTK, use unlink from fs module, no multer needed)
 #### Back-end:
 - create delete route
 - get the id from the req.params
@@ -68,12 +67,12 @@
 - dispatch deletePost action in the Post component
 - the UI will automatically update since the Posts component subscribes to the store with useSelector() hook
 	
-## Authentication (with JWT, bcrypt) will be updated soon	
-	
+## Authentication (with JWT, bcrypt) will be updated soon:	
+
 ## Pagination: 
 #### Front-end: 
 - use react-paginate package to build a pagination component
-- use useEffect to navigate to "?page=1" when the component first mounted
+- use useEffect to navigate to `?page=1` when the component first mounted
 - also useEffect to dispatch fetchPost(page) thunk action everytime page is changed
 - page will be change by handlePageClick provided by react-paginate, it will navigate, update the query string in the URL and lead to useEffect dispatch the fetchPost(page) thunk action.
 - update the getPosts API call to accepts current page as argument
@@ -85,14 +84,14 @@
 - no need to update the getPosts route for query string to work
 - get the page from the front-end API call via req.query
 - use page and hard-coded limit variables to write mongoose query to fetch appropriate portion of posts:      
-	mongoose query: const posts = await PostsModel.find().limit(limit).skip((page-1)*limit).sort({createdAt: -1});
+	`mongoose query: const posts = await PostsModel.find().limit(limit).skip((page-1)*limit).sort({createdAt: -1});`
 - send back the totalPage, and fetched posts 
 
 ## Search:
 #### Front-end:
 - create a simple search bar component with a search button
 - useState to get value from the search bar
-- handleChange function will navigate to the /search?s=`search_query_in_here`
+- handleChange function will navigate to the `/search?s=search_query_in_here`
 - the search component will get the query string with useSearchParams if there is any
 - then useEffect will dispatch fetchPostsBySearch(searchQuery) thunk action if there is any query string (create new API call, thunk action, update the state)
 - the Posts component use useSelector so it will rerender when Redux store got update with fetchPostsBySearch thunk action
