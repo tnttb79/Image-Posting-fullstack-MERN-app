@@ -66,7 +66,7 @@ const Auth = () => {
   };
   return (
     <div className='flex justify-center items-center col-span-3'>
-      <div className='p-16 h-full w-1/3 bg-indigo-600 rounded-lg shadow-lg dark:bg-gray-800'>
+      <div className='p-16 h-full w-1/3 rounded-lg bg-gray-800 shadow-[2px_2px_3px_3px_#718096]'>
         {/* form header */}
         <div className='text-center'>
           <h1 className='text-3xl text-white capitalize font-semibold'>

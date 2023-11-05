@@ -16,7 +16,7 @@ const InputField = ({ name, label, type, value, handleShowPassword,handleChange 
         type={type}
         placeholder={`Enter your ${label}`}
         required
-        className='w-full px-4 py-2 mt-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-md dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'
+        className='w-full px-4 py-2 mt-2 text-gray-700 bg-gray-800 border rounded-md dark:text-gray-300 border-gray-600 focus:border-blue-500 focus:outline-none focus:ring'
         onChange={handleChange}
         value={value}
       />

@@ -14,6 +14,15 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (page) => {
   return res.data;
 });
 
+// thunk to get posts by search
+export const fetchPostsBySearch = createAsyncThunk(
+  "post/fetchPostsBySearch",
+  async (title) => {
+    const res = await API.fetchPostsBySearch(title);
+    return res.data;
+  }
+);
+
 // thunk to add new post (not yet implemented)
 // export const addPost = createAsyncThunk('posts/addPost', async () => {
 //   const res = await axios.post(url)
@@ -44,11 +53,19 @@ export const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.loading = false;
         state.posts = action.payload.posts;
-        state.totalPage = action.payload.totalPage 
+        state.totalPage = action.payload.totalPage;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      // fetch posts by search reducer logic
+      .addCase(fetchPostsBySearch.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchPostsBySearch.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = action.payload.posts;
       })
       // delete post reducer logic
       .addCase(deletePost.fulfilled, (state, action) => {

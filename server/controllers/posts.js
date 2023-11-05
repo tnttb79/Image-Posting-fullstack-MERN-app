@@ -3,18 +3,37 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 
-// Get all posts
+// Get all posts (with pagination)
 export async function getPosts(req, res) {
   try {
-    const {page = 1} = req.query
-    const limit = 8
-    const posts = await PostsModel.find().limit(limit).skip((page-1)*limit).sort({createdAt: -1});
-    const count = await PostsModel.countDocuments()
-    res.status(200).json({ posts, totalPage: Math.ceil(count/limit) });
+    const { page } = req.query;
+    const limit = 8;
+    const posts = await PostsModel.find()
+      .limit(limit)
+      .skip((Number(page) - 1) * limit)
+      .sort({ createdAt: -1 });
+    const count = await PostsModel.countDocuments();
+    res.status(200).json({ posts, totalPage: Math.ceil(count / limit) });
+  } catch (error) {
+    res.status(404).json({ message: error });
+  }
+}
+
+// Get posts by search
+export const getPostsBySearch = async (req, res) => {
+  try {
+    const { s } = req.query;
+    // quick fix to prevent fetching too many result since pagination does not 
+    // work for search results currently. Doesn't have time to work on that
+    const limit = 8;
+    // use regEx to find all title that match the search query
+    const title = new RegExp(s, "i");
+    const posts = await PostsModel.find({ title }).limit(8);
+    res.json({ posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-}
+};
 
 // Create a post
 export async function createPost(req, res) {
@@ -25,13 +44,13 @@ export async function createPost(req, res) {
       const { filename } = req.file;
       req.body.selectedFile = filename;
     }
-    
+
     if (!req.body.selectedFile) {
       delete req.body.selectedFile;
     }
-    
+
     // add the userId as creator for the new post:
-    const newPost = new PostsModel({...req.body, creator: req.userId});
+    const newPost = new PostsModel({ ...req.body, creator: req.userId });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -101,25 +120,29 @@ export const deletePost = async (req, res) => {
 // Like post
 export const likePost = async (req, res) => {
   // get id of the post from params
-  const { id } = req.params
+  const { id } = req.params;
 
   // check if the userID has been assigned correctly
-  if (!req.userId) return res.status(403).json({message: "Unauthenticated"})
+  if (!req.userId) return res.status(403).json({ message: "Unauthenticated" });
 
   // find the post
-  const post = await PostsModel.findById(id)
+  const post = await PostsModel.findById(id);
   // check if the userId has already in the likes array
-  const index = post.likes.findIndex( id => id === req.userId)
+  const index = post.likes.findIndex((id) => id === req.userId);
   // if no add user to the like array
   if (index === -1) {
-    post.likes.push(req.userId)
+    post.likes.push(req.userId);
   } else {
-  // else, remove the userId from the likes array
-    post.likes = post.likes.filter(id => id !== req.userId )
+    // else, remove the userId from the likes array
+    post.likes = post.likes.filter((id) => id !== req.userId);
   }
   // update the database with the modified post.
-  const updatedPost = await PostsModel.findByIdAndUpdate(id, {likes: post.likes}, {new: true})
+  const updatedPost = await PostsModel.findByIdAndUpdate(
+    id,
+    { likes: post.likes },
+    { new: true }
+  );
 
   // send back the data to client
-  res.status(201).json(updatedPost)
+  res.status(201).json(updatedPost);
 };

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getPosts,
+  getPostsBySearch,
   createPost,
   updatePost,
   deletePost,
@@ -11,8 +12,11 @@ import { auth } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-// get all post
+// get all posts
 router.get("/", getPosts);
+
+// get posts by search
+router.get("/search", getPostsBySearch);
 
 // create new post
 router.post("/", upload.single("selectedFile"), auth, createPost);
@@ -22,7 +26,7 @@ router.post("/", upload.single("selectedFile"), auth, createPost);
 router.patch("/:id", upload.single("selectedFile"), auth, updatePost);
 
 // like a post
-router.patch("/:id/likepost", auth, likePost)
+router.patch("/:id/likepost", auth, likePost);
 
 // delete a post
 router.delete("/:id", auth, deletePost);

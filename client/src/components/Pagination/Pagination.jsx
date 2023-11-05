@@ -4,19 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "../../features/postsSlice";
 import ReactPaginate from "react-paginate";
 
-function PaginatedItems() {
+function Pagination() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // get the page query string in the URL
   const [searchParams] = useSearchParams();
-  const page = searchParams.get("page");
+  const page = searchParams.get("page") || 1;
+  const s = searchParams.get("s")
 
-  // navigate to '?page=1' when the component first mounted if there is no page
-  // also dispatch the fetchPosts thunk action everytime page changes
-  const dispatch = useDispatch();
+  // dispatch the fetchPosts thunk action everytime page changes
+  // and there is no search query string
+  // with this if check, user can paste URL for each search
   useEffect(() => {
-    if (!page) navigate("?page=1");
-    dispatch(fetchPosts(page));
-  }, [dispatch, navigate, page]);
+    if (!s) {
+      dispatch(fetchPosts(page));
+    }
+  }, [dispatch, page, s]);
 
   // get totalPage from Redux store after the action has been dispatched
   const { totalPage } = useSelector((state) => state.posts);
@@ -40,10 +44,11 @@ function PaginatedItems() {
         pageRangeDisplayed={1}
         marginPagesDisplayed={2}
         onPageChange={handlePageClick}
-        pageCount={totalPage || 0}
+        // when there a search, put 0 so it doesn't render pagination component
+        pageCount={!s ? totalPage : 0}
         renderOnZeroPageCount={null}
       />
     </>
   );
 }
-export default PaginatedItems;
+export default Pagination;

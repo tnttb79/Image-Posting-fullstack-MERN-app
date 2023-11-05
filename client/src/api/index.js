@@ -4,7 +4,7 @@ const API = axios.create({
   baseURL: "http://localhost:3000/posts",
 });
 
-// add the token to the headers ofevery request 
+// add the token to the headers of every request 
 // under this axios instance
 API.interceptors.request.use(
   config => {
@@ -15,6 +15,8 @@ API.interceptors.request.use(
 )
 
 export const fetchPosts = (page) => API.get(`?page=${page}`)
+
+export const fetchPostsBySearch = (title) => API.get(`/search?s=${title}`)
 
 export const createPost = (formData) => API.post('/', formData)
 
