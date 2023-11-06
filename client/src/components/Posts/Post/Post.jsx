@@ -16,17 +16,15 @@ const Post = ({ setUpdatingID, post }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   return (
-    <div className='group relative rounded-lg overflow-hidden duration-1000 bg-gray-200 hover:bg-gray-400 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:cursor-pointer'>
-      <div className='h-40'>
-        {/* Cover image */}
-        <img
-          src={
-            post.selectedFile ? `${imgsrc}${post.selectedFile}` : noImgAvailable
-          }
-          alt='image'
-          className='h-44 w-full object-fit object-center '
-        />
-      </div>
+    <div className='relative rounded-lg overflow-hidden duration-1000 bg-gray-200 hover:bg-gray-400 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:cursor-pointer'>
+      {/* Cover image */}
+      <img
+        src={
+          post.selectedFile ? `${imgsrc}${post.selectedFile}` : noImgAvailable
+        }
+        alt='image'
+        className='h-44 w-full object-fit object-center'
+      />
 
       {/* Edit icon */}
       {post.creator === user?.existingUser?._id && (
@@ -45,12 +43,12 @@ const Post = ({ setUpdatingID, post }) => {
 
       {/* CreateAt with react-time-ago package */}
       <ReactTimeAgo
-        className='text-xs font-thin text-white m-0 p-0 absolute top-11 left-4'
+        className='text-xs font-thin text-white absolute top-11 left-4'
         date={new Date(post.createdAt)}
         locale='en-US'
       />
 
-      <div className='h-1/2 p-4 '>
+      <div className='px-4 pt-1 flex-row'>
         {/* Tags */}
         <p className='text-xs font-thin italic truncate'>
           {post.tags
@@ -67,10 +65,9 @@ const Post = ({ setUpdatingID, post }) => {
         </h3>
 
         {/* Descriptions */}
-        <div className='flex flex-row justify-between text-sm truncate'>
-          <p>{post.descriptions}</p>
-        </div>
-        <div className='flex py-2 w-full'>
+        <p className='text h-32 overflow-hidden'>{post.descriptions}</p>
+        
+        <div className='flex py-2'>
           {/* Like button */}
           {user ? (
             <button

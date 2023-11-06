@@ -22,7 +22,7 @@ const Posts = ({ setUpdatingID }) => {
       )}
 
       {!loading && !error && posts && (
-        <div className='grid grid-cols-2 gap-4 w-full'>
+        <div className='grid grid-cols-4 gap-4'>
           {posts.map((post) => (
             <Post setUpdatingID={setUpdatingID} post={post} key={post._id} />
           ))}

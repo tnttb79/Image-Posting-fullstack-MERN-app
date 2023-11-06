@@ -6,9 +6,9 @@ import Auth from "./components/Auth/Auth";
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   return (
-    <div className='h-screen mx-40'>
+    <div className='h-full mx-32 p-2 overflow-hidden'>
       <Navbar />
-      <div className='grid grid-cols-3 gap-2'>
+      <div className='grid grid-cols-3 gap-2 w-full h-full '>
         <Routes>
           <Route path='/' element={<Navigate to={"/posts"} />} />
           <Route path='/posts' element={<Home />} />
