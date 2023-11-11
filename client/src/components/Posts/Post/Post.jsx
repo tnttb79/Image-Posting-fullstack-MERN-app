@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import { deletePost, likePost } from "../../../features/postsSlice";
 import Like from "./Like/Like";
@@ -8,6 +9,7 @@ import EditIcon from "./Icons/EditIcon";
 
 const Post = ({ setUpdatingID, post }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const imgsrc = "http://localhost:3000/images/";
   const noImgAvailable =
@@ -15,8 +17,13 @@ const Post = ({ setUpdatingID, post }) => {
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
+  // navigate to detailed page
+  const handleDetailedPageClick = () => {
+    navigate(`/posts/${post._id}`);
+  };
+
   return (
-    <div className='relative rounded-lg overflow-hidden duration-1000 bg-gray-200 hover:bg-gray-400 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] hover:cursor-pointer'>
+    <div className='relative rounded-lg overflow-hidden duration-1000 bg-gray-100 hover:bg-gray-400 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
       {/* Cover image */}
       <img
         src={
@@ -58,15 +65,16 @@ const Post = ({ setUpdatingID, post }) => {
         </p>
 
         {/* Title */}
-        <h3 className='mb-2 text-3xl font-bold text-blue-800 truncate'>
-          <a href='' className='hover:underline'>
-            {post.title}
-          </a>
+        <h3
+          className='mb-2 text-3xl font-bold text-blue-800 hover:cursor-pointer hover:text-4xl truncate'
+          onClick={handleDetailedPageClick}
+        >
+          {post.title}
         </h3>
 
         {/* Descriptions */}
         <p className='text h-32 overflow-hidden'>{post.descriptions}</p>
-        
+
         <div className='flex py-2'>
           {/* Like button */}
           {user ? (

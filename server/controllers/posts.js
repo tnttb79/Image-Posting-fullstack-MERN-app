@@ -19,17 +19,30 @@ export async function getPosts(req, res) {
   }
 }
 
-// Get posts by search
+// Get detailed post
+export const getPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await PostsModel.findById(id);
+    res.status(200).json({ post });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// Get posts by title or tags
 export const getPostsBySearch = async (req, res) => {
   try {
-    const { s } = req.query;
-    // quick fix to prevent fetching too many result since pagination does not 
+    const { s, tags } = req.query;
+    // quick fix to prevent fetching too many result since pagination does not
     // work for search results currently. Doesn't have time to work on that
     const limit = 8;
     // use regEx to find all title that match the search query
     const title = new RegExp(s, "i");
-    const posts = await PostsModel.find({ title }).limit(8);
-    res.json({ posts });
+    const posts = await PostsModel.find({
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    }).limit(8);
+    res.status(200).json({ posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -50,7 +63,7 @@ export async function createPost(req, res) {
     }
 
     // add the userId as creator for the new post:
-    const newPost = new PostsModel({ ...req.body, creator: req.userId });
+    const newPost = new PostsModel({ ...req.body, creator: req.userId, tags: req.body.tags.split(",") });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -75,12 +88,12 @@ export const updatePost = async (req, res) => {
     if (!req.body.selectedFile) {
       delete req.body.selectedFile;
     }
-    const updatedPost = await PostsModel.findByIdAndUpdate(id, req.body, {
+    // tags need to be parsed here since the formData send it as a string instead of array
+    const updatedPost = await PostsModel.findByIdAndUpdate(id, {...req.body, tags: req.body.tags.split(",")}, {
       new: true,
     });
     res.status(200).json(updatedPost);
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 };
@@ -112,12 +125,11 @@ export const deletePost = async (req, res) => {
     }
     res.json({ message: "Post deleted succesfully" });
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 };
 
-// Like post
+  // Like post
 export const likePost = async (req, res) => {
   // get id of the post from params
   const { id } = req.params;

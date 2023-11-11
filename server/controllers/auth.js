@@ -13,12 +13,16 @@ export const signUp = async (req, res) => {
     if (password !== confirmPassword)
       return res
         .status(409)
-        .json({ message: "Confirm password does not match. Please try again!" });
+        .json({
+          message: "Confirm password does not match. Please try again!",
+        });
 
     // check if email is already exist
     const existingUser = await UserModel.findOne({ email });
     if (existingUser)
-      return res.status(409).json({ message: "Email already exist. Please try again!" });
+      return res
+        .status(409)
+        .json({ message: "Email already exist. Please try again!" });
 
     // hash the password
     const hashedPassword = await bcryptjs.hash(password, 12);
@@ -44,25 +48,36 @@ export const signUp = async (req, res) => {
 };
 
 export const signIn = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  // find email in the database
-  const existingUser = await UserModel.findOne({ email });
+    // find email in the database
+    const existingUser = await UserModel.findOne({ email });
 
-  // if there is no user, return
-  if (!existingUser)
-    return res.status(404).json({ message: "Incorrect user's credential. Please try again!" });
+    // if there is no user, return
+    if (!existingUser)
+      return res
+        .status(404)
+        .json({ message: "Incorrect user's credential. Please try again!" });
 
-  // compare password with the password in database using brcrypt
-  const compareResult = await bcryptjs.compare(password, existingUser.password);
+    // compare password with the password in database using brcrypt
+    const compareResult = await bcryptjs.compare(
+      password,
+      existingUser.password
+    );
 
-  // wrong password case
-  if (!compareResult)
-    return res.status(401).json({ message: "Incorrect user's credential. Please try again!" });
+    // wrong password case
+    if (!compareResult)
+      return res
+        .status(401)
+        .json({ message: "Incorrect user's credential. Please try again!" });
 
-  // correct password case -> generate token -> send back the token
-  const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
-    expiresIn: "1h",
-  });
-  return res.status(200).json({ token, existingUser });
+    // correct password case -> generate token -> send back the token
+    const token = jwt.sign({ id: existingUser.id }, process.env.SECRET_KEY, {
+      expiresIn: "1h",
+    });
+    return res.status(200).json({ token, existingUser });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };

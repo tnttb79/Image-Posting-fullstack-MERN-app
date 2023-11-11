@@ -16,7 +16,9 @@ API.interceptors.request.use(
 
 export const fetchPosts = (page) => API.get(`?page=${page}`)
 
-export const fetchPostsBySearch = (title) => API.get(`/search?s=${title}`)
+export const fetchPost = (id) => API.get(`/${id}`)
+
+export const fetchPostsBySearch = (search, tags) => API.get(`/search?s=${search}&tags=${tags}`)
 
 export const createPost = (formData) => API.post('/', formData)
 

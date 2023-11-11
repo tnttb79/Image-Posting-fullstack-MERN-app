@@ -45,7 +45,7 @@ function Pagination() {
         marginPagesDisplayed={2}
         onPageChange={handlePageClick}
         // when there a search, put 0 so it doesn't render pagination component
-        pageCount={!s ? totalPage : 0}
+        pageCount={!s ? (totalPage || 0) : 0}
         renderOnZeroPageCount={null}
       />
     </>

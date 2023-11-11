@@ -1,7 +1,8 @@
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
-import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./components/Auth/Auth";
+import DetailedPage from "./components/DetailedPage/DetailedPage";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -13,6 +14,7 @@ const App = () => {
           <Route path='/' element={<Navigate to={"/posts"} />} />
           <Route path='/posts' element={<Home />} />
           <Route path='/posts/search' element={<Home />} />
+          <Route path='posts/:id' element={<DetailedPage />} />
           <Route
             path='/auth'
             // if the user is already login. Stop them from accessing auth route

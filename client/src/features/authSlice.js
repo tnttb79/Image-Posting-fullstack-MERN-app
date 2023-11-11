@@ -26,6 +26,7 @@ export const signUp = createAsyncThunk(
     }
   }
 );
+
 // thunk to sign in
 export const signIn = createAsyncThunk(
   "auth/signin",
@@ -40,8 +41,9 @@ export const signIn = createAsyncThunk(
     }
   }
 );
+
 // thunk to sign out
-export const signOut = createAsyncThunk("auth/signOut", async () => {
+export const signOut = createAsyncThunk("auth/signOut", () => {
   localStorage.removeItem("profile");
 });
 

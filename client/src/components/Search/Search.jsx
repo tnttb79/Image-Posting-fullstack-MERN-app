@@ -38,7 +38,7 @@ const Search = () => {
   // only if there is a search query string
   useEffect(() => {
     if (searchTitle) {
-      dispatch(fetchPostsBySearch(searchTitle));
+      dispatch(fetchPostsBySearch({search: searchTitle, tags: ""}));
     }
   }, [searchTitle, dispatch]);
 
@@ -50,7 +50,6 @@ const Search = () => {
         </button>
       </span>
       <input
-        type='search'
         name='search'
         onChange={handleChange}
         onKeyDown={handleSearchKeyPress}

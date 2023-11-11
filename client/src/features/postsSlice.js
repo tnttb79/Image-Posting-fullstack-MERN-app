@@ -1,24 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as API from "../api/index";
 
-const initialState = {
-  posts: [],
-  loading: false,
-  error: null,
-  totalPage: null,
-};
-
 // thunk to get all the posts
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (page) => {
   const res = await API.fetchPosts(page);
   return res.data;
 });
 
-// thunk to get posts by search
+// thunk to get detailed post
+export const fetchPost = createAsyncThunk("posts/fetchPost", async (id) => {
+  const res = await API.fetchPost(id);
+  return res.data
+})
+
+// thunk to get posts by search (also for recommended posts)
 export const fetchPostsBySearch = createAsyncThunk(
   "post/fetchPostsBySearch",
-  async (title) => {
-    const res = await API.fetchPostsBySearch(title);
+  async ({search, tags}) => {
+    const res = await API.fetchPostsBySearch(search, tags);
     return res.data;
   }
 );
@@ -41,6 +40,14 @@ export const likePost = createAsyncThunk("posts/likePost", async (id) => {
   return data;
 });
 
+const initialState = {
+  posts: [],
+  post: null,
+  loading: false,
+  error: null,
+  totalPage: null,
+};
+
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -57,7 +64,15 @@ export const postsSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = action.payload.error;
+      })
+      // fetch detailed post
+      .addCase(fetchPost.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(fetchPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.post = action.payload.post
       })
       // fetch posts by search reducer logic
       .addCase(fetchPostsBySearch.pending, (state) => {

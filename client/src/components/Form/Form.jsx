@@ -144,7 +144,8 @@ const Form = ({ setUpdatingID, updatingID }) => {
                   type='text'
                   value={form.tags}
                   onChange={(e) => {
-                    setForm({ ...form, tags: e.target.value });
+                    setForm({ ...form, tags: e.target.value.trim()});
+                    console.log("Form", form.tags)
                   }}
                   className='w-full px-4 py-2 mt-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-md  dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'
                 />

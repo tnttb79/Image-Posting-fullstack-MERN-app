@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getPosts,
+  getPost,
   getPostsBySearch,
   createPost,
   updatePost,
@@ -18,11 +19,13 @@ router.get("/", getPosts);
 // get posts by search
 router.get("/search", getPostsBySearch);
 
+// get detailed post
+router.get("/:id", getPost);
+
 // create new post
 router.post("/", upload.single("selectedFile"), auth, createPost);
 
 // update a post
-
 router.patch("/:id", upload.single("selectedFile"), auth, updatePost);
 
 // like a post
