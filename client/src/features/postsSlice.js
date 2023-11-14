@@ -22,10 +22,14 @@ export const fetchPostsBySearch = createAsyncThunk(
   }
 );
 
-// thunk to add new post (not yet implemented)
+// // thunk to add new post (not yet implemented)
 // export const addPost = createAsyncThunk('posts/addPost', async () => {
 //   const res = await axios.post(url)
 //   return res.data
+// })
+
+// export const updatePost = createAsyncThunk('posts/updatePost', async () => {
+
 // })
 
 // thunk to delete a post
@@ -43,7 +47,6 @@ export const likePost = createAsyncThunk("posts/likePost", async (id) => {
 // thunk to comment a post
 export const commentPost = createAsyncThunk("posts/commentPost", async ({comment, id}) => {
   const res = await API.commentPost(comment, id);
-  console.log("postSlice-res", res)
   return res.data
 })
 

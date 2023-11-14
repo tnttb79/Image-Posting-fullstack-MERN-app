@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import FileUploader from "./FileUploader/FileUploader";
 import * as API from "../../api/index";
 
@@ -26,12 +27,12 @@ const Form = ({ setUpdatingID, updatingID }) => {
       // since if originally there's no img uploaded append method
       // will append  "undefined" string instead of an "" empty string
       setForm(() => {
-        if (!form.selectedFile) {
+        if (!editingPost.selectedFile) {
           return { ...editingPost, selectedFile: "" };
         }
         return editingPost;
       });
-  }, [editingPost, form.selectedFile]);
+  }, [editingPost]);
 
   //handler function to get the file from the child components
   //using setFile function from useState hook
@@ -56,7 +57,9 @@ const Form = ({ setUpdatingID, updatingID }) => {
   // get the current user info to append to the formData
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const handleSubmit = () => {
+  const navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     const formData = new FormData();
     formData.append("name", user.existingUser.name);
     formData.append("title", form.title);
@@ -69,6 +72,7 @@ const Form = ({ setUpdatingID, updatingID }) => {
       API.updatePost(updatingID, formData)
         .then((res) => {
           console.log("Patch request success:", res);
+          navigate(`/posts/${updatingID}`)
         })
         .catch((error) => {
           console.log("Error: ", error);
@@ -77,6 +81,7 @@ const Form = ({ setUpdatingID, updatingID }) => {
       // create post
       API.createPost(formData)
         .then((res) => {
+          navigate(`/posts/${res.data._id}`)
           console.log("Post request successfull:", res);
         })
         .catch((error) => {
@@ -144,8 +149,7 @@ const Form = ({ setUpdatingID, updatingID }) => {
                   type='text'
                   value={form.tags}
                   onChange={(e) => {
-                    setForm({ ...form, tags: e.target.value.trim()});
-                    console.log("Form", form.tags)
+                    setForm({ ...form, tags: e.target.value.trim() });
                   }}
                   className='w-full px-4 py-2 mt-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-md  dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'
                 />

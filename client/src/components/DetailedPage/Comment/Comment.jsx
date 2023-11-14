@@ -22,17 +22,18 @@ const Comment = ({ post }) => {
   // useRef to help scroll to the newest comment
   const commentsRef = useRef();
   useEffect(() => {
-    commentsRef.current.scrollIntoView({ behavior: "smooth" });
+    commentsRef.current.scrollIntoView({ behavior: "smooth", block: "nearest",
+    inline: "start" });
   }, [post]);
 
   return (
     <div className='flex justify-between h-52 mt-3'>
       {/* Comment lists */}
-      <div className='w-1/2 overflow-y-scroll'>
+      <div className={`${user ? 'w-1/2' : 'w-full'} overflow-y-scroll`}>
         {/* get the comment from the redux store post state. 
         This way UI will be updated automatically */}
-        {post?.comments.map((comment, index) => (
-          <div key={index}>
+        {post?.comments.length ? post.comments.map((comment, index) => (
+          <div key={index} className="pb-2">
             <span className='capitalize font-semibold'>
               {/* get user name */}
               {comment?.split(": ")[0]}:{" "}
@@ -40,16 +41,16 @@ const Comment = ({ post }) => {
             {/* get comment content */}
             {comment?.split(": ")[1]}
           </div>
-        ))}
+        )) : <p className='italic text-gray-400'>... No comment yet</p>}
         {/* scroll to latest comment w/ useRef */}
-        <div ref={commentsRef} />
+        <div ref={commentsRef}/>
       </div>
 
       {/* Comment box */}
-      <div className='w-1/2 bg-white rounded-lg border p-2'>
+      {user && (<div className='w-1/2 bg-white rounded-lg border p-2'>
         <div className='px-3 mb-2 mt-2 h-2/3'>
           <textarea
-            placeholder='comment'
+            placeholder='Leave a comment...'
             value={comment}
             onChange={(e) => {
               setComment(e.target.value);
@@ -67,7 +68,7 @@ const Comment = ({ post }) => {
             Add
           </button>
         </div>
-      </div>
+      </div>)}
     </div>
   );
 };

@@ -34,8 +34,8 @@ const DetailedPage = () => {
 
   // get the current post out of the reccommended posts
   const recommendedPosts = posts
-    .slice(0, 5)
-    .filter((item) => item._id !== post?._id);
+    .filter((item) => item._id !== post?._id)
+    .slice(0, 4)
 
   return (
     <>
@@ -71,7 +71,7 @@ const DetailedPage = () => {
               />
 
               {/* Descriptions */}
-              <p className='h-20 my-3 border-t-2'>{post.descriptions}</p>
+              <p className='h-20 overflow-y-scroll my-3 border-t-2'>{post.descriptions}</p>
 
               {/* Tags */}
               <p className='text font-thin italic border-b-2 text-gray-500 truncate'>
@@ -88,7 +88,11 @@ const DetailedPage = () => {
             {/* Cover image */}
             <img
               className='h-full w-2/5 mt-4 mr-4 object-fit object-center rounded-3xl'
-              src={`${imgsrc}${post.selectedFile}` || noImgAvailable}
+              src={
+                post.selectedFile
+                  ? `${imgsrc}${post.selectedFile}`
+                  : noImgAvailable
+              }
               alt='image'
             />
           </div>

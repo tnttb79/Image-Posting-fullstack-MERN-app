@@ -12,7 +12,7 @@ const postSchema = new Schema({
   comments: { type: [String], default: [] },
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: Date.now,
   },
 });
 

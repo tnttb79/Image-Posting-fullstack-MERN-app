@@ -27,7 +27,5 @@ export const likePost = (id) => API.patch(`/${id}/likepost`);
 
 export const deletePost = (id) => API.delete(`/${id}/delete`);
 
-export const commentPost = (comment, id) => {
-  console.log("API-comment", typeof comment)
-  return API.post(`/${id}/comment`, {comment})
-};
+export const commentPost = (comment, id) =>
+  API.post(`/${id}/comment`, { comment });
