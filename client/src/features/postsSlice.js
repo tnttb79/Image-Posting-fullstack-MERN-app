@@ -36,9 +36,16 @@ export const deletePost = createAsyncThunk("posts/deletePost", async (id) => {
 
 // thunk to like a post
 export const likePost = createAsyncThunk("posts/likePost", async (id) => {
-  const { data } = await API.likePost(id);
-  return data;
+  const res = await API.likePost(id);
+  return res.data;
 });
+
+// thunk to comment a post
+export const commentPost = createAsyncThunk("posts/commentPost", async ({comment, id}) => {
+  const res = await API.commentPost(comment, id);
+  console.log("postSlice-res", res)
+  return res.data
+})
 
 const initialState = {
   posts: [],
@@ -91,7 +98,10 @@ export const postsSlice = createSlice({
         state.posts = state.posts.map((post) =>
           post._id === action.payload._id ? action.payload : post
         );
-      });
+      })
+      .addCase(commentPost.fulfilled, (state, action) => {
+        state.post = action.payload.post
+      })
   },
 });
 

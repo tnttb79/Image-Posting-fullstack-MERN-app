@@ -6,18 +6,16 @@ const postSchema = new Schema({
   creator: String,
   title: String,
   descriptions: String,
-  tags: [String],
+  tags: { type: [String], default: [] },
   selectedFile: String,
-  likes: {
-      type: [String],
-      default: [],
-  },
+  likes: { type: [String], default: [] },
+  comments: { type: [String], default: [] },
   createdAt: {
-      type: Date,
-      default: new Date(),
+    type: Date,
+    default: new Date(),
   },
-})
+});
 
-const PostsModel = mongoose.model('PostsModel', postSchema);
+const PostsModel = mongoose.model("PostsModel", postSchema);
 
-export default PostsModel
+export default PostsModel;

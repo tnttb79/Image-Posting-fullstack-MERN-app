@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import ReactTimeAgo from "react-time-ago";
 import { fetchPost, fetchPostsBySearch } from "../../features/postsSlice";
 import RecommendedPosts from "./RecommendedPosts/RecommendedPosts";
+import Comment from "./Comment/Comment";
 
 const imgsrc = "http://localhost:3000/images/";
 const noImgAvailable =
@@ -34,7 +35,7 @@ const DetailedPage = () => {
   // get the current post out of the reccommended posts
   const recommendedPosts = posts
     .slice(0, 5)
-    .filter((item) => item._id !== post._id);
+    .filter((item) => item._id !== post?._id);
 
   return (
     <>
@@ -79,6 +80,9 @@ const DetailedPage = () => {
                   .split(",")
                   .map((tag) => `#${tag.trim()}`)}
               </p>
+
+              {/* Comment section */}
+              <Comment post={post} />
             </div>
 
             {/* Cover image */}
@@ -91,10 +95,8 @@ const DetailedPage = () => {
 
           {/* Reccommend posts */}
           <div className='mx-6 mt-2 h-2/5'>
-            <p className='font-semibold pb-2 border-b-2'>
-              Simmiliar posts:
-            </p>
-            <div className="grid grid-cols-4 gap-6 mt-2">
+            <p className='font-semibold pb-2 border-b-2'>Simmiliar posts:</p>
+            <div className='grid grid-cols-4 gap-6 mt-2'>
               {!!recommendedPosts.length &&
                 recommendedPosts.map((post) => (
                   <RecommendedPosts post={post} key={post._id} />

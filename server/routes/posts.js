@@ -7,6 +7,7 @@ import {
   updatePost,
   deletePost,
   likePost,
+  commentPost,
 } from "../controllers/posts.js";
 import { upload } from "../controllers/upload.js";
 import { auth } from "../middlewares/auth.js";
@@ -32,6 +33,9 @@ router.patch("/:id", upload.single("selectedFile"), auth, updatePost);
 router.patch("/:id/likepost", auth, likePost);
 
 // delete a post
-router.delete("/:id", auth, deletePost);
+router.delete("/:id/delete", auth, deletePost);
+
+// comment on a post
+router.post("/:id/comment", auth, commentPost)
 
 export default router;

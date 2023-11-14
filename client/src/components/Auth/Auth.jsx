@@ -106,6 +106,7 @@ const Auth = () => {
               type='email'
               handleChange={handleChange}
               value={formData.email}
+              required
             />
 
             {/* password */}
@@ -116,6 +117,8 @@ const Auth = () => {
               handleShowPassword={handleShowPassword}
               handleChange={handleChange}
               value={formData.password}
+              autoComplete="current-password"
+              required
             />
 
             {/* confirm password */}
@@ -127,6 +130,7 @@ const Auth = () => {
                 handleShowPassword={handleShowPassword}
                 handleChange={handleChange}
                 value={formData.confirmPassword}
+                required
               />
             )}
             {/* handle thunk rejected promise for sign in/up */}

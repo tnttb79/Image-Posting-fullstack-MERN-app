@@ -63,7 +63,12 @@ export async function createPost(req, res) {
     }
 
     // add the userId as creator for the new post:
-    const newPost = new PostsModel({ ...req.body, creator: req.userId, tags: req.body.tags.split(",") });
+    const newPost = new PostsModel({
+      ...req.body,
+      creator: req.userId,
+    // tags need to be parsed here since the formData send it as a string instead of array
+      tags: req.body.tags.split(","),
+    });
     await newPost.save();
     res.status(201).json(newPost);
   } catch (error) {
@@ -88,10 +93,14 @@ export const updatePost = async (req, res) => {
     if (!req.body.selectedFile) {
       delete req.body.selectedFile;
     }
+    const updatedPost = await PostsModel.findByIdAndUpdate(
+      id,
     // tags need to be parsed here since the formData send it as a string instead of array
-    const updatedPost = await PostsModel.findByIdAndUpdate(id, {...req.body, tags: req.body.tags.split(",")}, {
-      new: true,
-    });
+      { ...req.body, tags: req.body.tags.split(",") },
+      {
+        new: true,
+      }
+    );
     res.status(200).json(updatedPost);
   } catch (error) {
     res.status(400).json(error);
@@ -129,32 +138,48 @@ export const deletePost = async (req, res) => {
   }
 };
 
-  // Like post
+// Like post
 export const likePost = async (req, res) => {
-  // get id of the post from params
-  const { id } = req.params;
-
-  // check if the userID has been assigned correctly
-  if (!req.userId) return res.status(403).json({ message: "Unauthenticated" });
-
-  // find the post
-  const post = await PostsModel.findById(id);
-  // check if the userId has already in the likes array
-  const index = post.likes.findIndex((id) => id === req.userId);
-  // if no add user to the like array
-  if (index === -1) {
-    post.likes.push(req.userId);
-  } else {
-    // else, remove the userId from the likes array
-    post.likes = post.likes.filter((id) => id !== req.userId);
+  try {
+    // get id of the post from params
+    const { id } = req.params;
+    // check if the userID has been assigned correctly
+    if (!req.userId)
+      return res.status(403).json({ message: "Unauthenticated" });
+    // find the post
+    const post = await PostsModel.findById(id);
+    // check if the userId has already in the likes array
+    const index = post.likes.findIndex((id) => id === req.userId);
+    // if no add user to the like array
+    if (index === -1) {
+      post.likes.push(req.userId);
+    } else {
+      // else, remove the userId from the likes array
+      post.likes = post.likes.filter((id) => id !== req.userId);
+    }
+    // update the database with the modified post.
+    const updatedPost = await PostsModel.findByIdAndUpdate(
+      id,
+      { likes: post.likes },
+      { new: true }
+    );
+    // send back the data to client
+    res.status(201).json(updatedPost);
+  } catch (error) {
+    res.status(409).json({ message: error.message });
   }
-  // update the database with the modified post.
-  const updatedPost = await PostsModel.findByIdAndUpdate(
-    id,
-    { likes: post.likes },
-    { new: true }
-  );
+};
 
-  // send back the data to client
-  res.status(201).json(updatedPost);
+// Comment post
+export const commentPost = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { comment } = req.body
+    const post = await PostsModel.findById(id)
+    post.comments.push(comment)
+    const updatedPost = await post.save()
+    res.status(200).json({post})
+  } catch (error) {
+    res.status(409).json({message: error.message})
+  }
 };
