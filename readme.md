@@ -102,7 +102,12 @@
 - get the search query from req.body
 - convert search query to regEx for the mongoose find() method
 - limit to 8 results for better UI
-	
+
+ ## Detailed Page
+
+ ## Reccommended Posts
+
+ ## Comments
 	
 	
 	
