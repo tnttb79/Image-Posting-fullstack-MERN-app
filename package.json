@@ -1,0 +1,24 @@
+{
+  "name": "mygallery",
+  "version": "1.0.0",
+  "description": "- `npm init -y` \r - create folder structure for back-end\r - install neccessary dependencies for back-end development (cors, nodemon, etc...)\r - type: \"module\" to use ES6 in the backend\r - Express: \r \t- Set up Express: `cors()`, `json()`, `urencoded()`, etc\r \t- MongoDB Atlas cluster setup\r \t- Connect to MongoDB using mongoose\r \t- `app.listen()`\r - create routes in a separate directory\r - create logic of routes handlers in controller directory: this is the logic for each request. Need to put them in a separate folder as a good practice.\r (Then move to client side to create basic structure like Form, Post)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-server": "cd server && npm i",
+    "start-server": "cd server && node index.js",
+    "install-client": "cd client && npm i & npm run build",
+    "start-client": "cd client && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tnttb79/Image-Posting-fullstack-MERN-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tnttb79/Image-Posting-fullstack-MERN-app/issues"
+  },
+  "homepage": "https://github.com/tnttb79/Image-Posting-fullstack-MERN-app#readme"
+}
