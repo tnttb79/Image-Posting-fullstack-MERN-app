@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:3000/posts",
+  baseURL: "https://my-memories-api-ox4n.onrender.com/posts",
 });
 
 // add the token to the headers of every request

@@ -5,7 +5,7 @@ import axios from "axios";
 const initialState = {
   userData: null,
 };
-const url = "http://localhost:3000/users";
+const url = "https://my-memories-api-ox4n.onrender.com/users";
 
 // currently doing too many things in thunk action
 // since I don't have a separate services module

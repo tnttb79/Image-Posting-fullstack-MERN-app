@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 
-const imgsrc = "http://localhost:3000/images/";
+const imgsrc = "https://my-memories-api-ox4n.onrender.com/images/";
 const noImgAvailable =
   "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png";
 

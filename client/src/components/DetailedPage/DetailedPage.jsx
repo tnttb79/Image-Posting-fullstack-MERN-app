@@ -6,7 +6,7 @@ import { fetchPost, fetchPostsBySearch } from "../../features/postsSlice";
 import RecommendedPosts from "./RecommendedPosts/RecommendedPosts";
 import Comment from "./Comment/Comment";
 
-const imgsrc = "http://localhost:3000/images/";
+const imgsrc = "https://my-memories-api-ox4n.onrender.com/images/";
 const noImgAvailable =
   "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png";
 
