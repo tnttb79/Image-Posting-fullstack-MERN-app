@@ -13,7 +13,7 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
-const corsOptions = { origin: "http://localhost:5173"}
+const corsOptions = { origin: "https://my-memories-uf61.onrender.com"}
 app.use(express.urlencoded({ extended: true, limit: "30mb" }));
 app.use(express.json({ extended: true, limit: "30mb" }));
 app.use(cors(corsOptions));
