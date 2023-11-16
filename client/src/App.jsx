@@ -7,9 +7,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 const App = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
   return (
-    <div className='h-full mx-32 p-2 overflow-hidden'>
+    <div className='h-full mx-32 p-2 overflow-auto'>
       <Navbar />
-      <div className='grid grid-cols-3 gap-2 w-full h-full '>
+      <div className='grid grid-cols-3 gap-2 overflow-hidden w-full p-2'>
         <Routes>
           <Route path='/' element={<Navigate to={"/posts"} />} />
           <Route path='/posts' element={<Home />} />

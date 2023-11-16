@@ -50,7 +50,7 @@ const DetailedPage = () => {
       )}
 
       {!loading && post && (
-        <div className='col-span-3 h-5/6 rounded-lg overflow-hidden duration-1000 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
+        <div className='col-span-3 h-full rounded-lg overflow-hidden duration-1000 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
           <div className='flex h-3/5'>
             <div className='w-3/5 m-6'>
               {/* Title */}
