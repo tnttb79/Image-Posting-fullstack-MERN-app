@@ -1,4 +1,8 @@
 # MyGallery Fullstack-MERN-Redux Toolkit:
+## Live demo:
+https://my-memories-uf61.onrender.com/posts
+![image](https://github.com/tnttb79/WEB-REACT-MyGallery-fullstack-MERN-app/assets/90600992/ff4e9b05-51a6-4670-a1b8-6dc2335e2705)
+
 ## Initialize the project:
 #### Back-end:
 - `npm init -y` 
