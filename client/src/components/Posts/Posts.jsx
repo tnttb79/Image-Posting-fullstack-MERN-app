@@ -5,13 +5,17 @@ import Post from "./Post/Post";
 const Posts = ({ setUpdatingID }) => {
   // get the posts state from the store
   const { posts, loading, error } = useSelector((state) => state.posts);
-  
+
   const [searchParams] = useSearchParams();
 
   return (
     <>
       {loading && (
-        <div className='flex justify-center'>
+        <div className='flex justify-center items-center flex-col'>
+          <p className='text-xl text-center font-bold'>
+            😔😔😔I use a free hosting service, please allow some time for the
+            application to boot up from a cold start. <br/> Thank you!!!
+          </p>
           <img
             className='w-20 h-20 mt-80 animate-spin'
             src='https://www.svgrepo.com/show/448500/loading.svg'

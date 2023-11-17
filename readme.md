@@ -1,7 +1,7 @@
 # MyGallery Fullstack-MERN-Redux Toolkit 
 
 ## Live demo:
-### (Not fully responsive yet. 😔😔😔I use a free hosting service, please allow some time for the application to boot up from a cold start since):
+### (Not fully responsive yet. 😔😔😔I use a free hosting service, please allow some time for the application to boot up from a cold start. Thank you!!!):
 ### https://my-memories-uf61.onrender.com/posts
 ![image](https://github.com/tnttb79/WEB-REACT-MyGallery-fullstack-MERN-app/assets/90600992/ff4e9b05-51a6-4670-a1b8-6dc2335e2705)
 
